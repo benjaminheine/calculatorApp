@@ -1,0 +1,6 @@
+- create forms that look like a calculator
+- create a inbux that takes the numbers, store them and calculate the result
+- create a delete button that deletes the numbers
+- if divisor operator button is pressed when inputbox is zero change inputbox to Error after evalbutton
+- when number button is pressed put number in input box
+- when operator button other than divisor is pressed take inputbox and operator action 
