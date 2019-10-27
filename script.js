@@ -1,5 +1,5 @@
 let calculation = [];
-
+resultInDisplay = "";
 //Create event listener for buttons when page is loaded
 window.onload = function() {
   createEventListenerForButtons();
@@ -15,6 +15,13 @@ function createEventListenerForButtons() {
   for (i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener("click", function(e) {
       e.preventDefault();
+      console.log(resultInDisplay);
+      if (resultInDisplay == 1) {
+        document.getElementById("digitField").value = "";
+        calculation = [];
+        resultInDisplay = 2;
+        
+      }
       const number = e.target.childNodes[0].nodeValue;
       document.getElementById("digitField").value =
         document.getElementById("digitField").value + number;
@@ -31,7 +38,8 @@ function createEventListenerForOperators() {
       e.preventDefault();
       const operator = e.target.childNodes[0].nodeValue;
       calculation.push(operator);
-      document.getElementById("digitField").value = document.getElementById("digitField").value + operator;
+      document.getElementById("digitField").value =
+        document.getElementById("digitField").value + operator;
     });
   }
 }
@@ -42,25 +50,35 @@ function showResult(e) {
   e.preventDefault();
   console.log(calculation);
   let result = 0;
-  let lastArrayItem = calculation[calculation.length-1];
-  console.log(calculation.join(""))
+  let lastArrayItem = calculation[calculation.length - 1];
+  console.log(calculation.join(""));
   result = eval(calculation.join(""));
   calculation = [];
   calculation.push(result);
-  document.getElementById("digitField").value = "=" + result.toLocaleString('en', {maximumFractionDigits:3, useGrouping:false});
+  document.getElementById("digitField").value = result.toLocaleString("en", {
+    maximumFractionDigits: 3,
+    useGrouping: false
+  });
+  document.getElementById("resetButton").innerText = "CE";
+  resultInDisplay = 1;
 }
 
 // function to delete display and array
 document.getElementById("resetButton").addEventListener("click", deleteDisplay);
 function deleteDisplay(e) {
   console.log(e);
-  if ( e.target.childNodes["0"].data === "CE"){
-  calculation = [];
-  document.getElementById("digitField").value = "";
+  if (e.target.childNodes["0"].data === "CE") {
+    calculation = [];
+    document.getElementById("digitField").value = "";
   } else {
-    calculation.splice(calculation.length-2, 2);
+    if (resultInDisplay === 2) {
+      calculation = [];
+      document.getElementById("digitField").value = "";
+      resultInDisplay = 0;
+    }else{
+    calculation.splice(calculation.length - 2, 2);
     document.getElementById("digitField").value = calculation.join("");
     document.getElementById("resetButton").innerText = "CE";
-
+    }
   }
 }
