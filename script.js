@@ -16,12 +16,12 @@ function createEventListenerForButtons() {
     buttons[i].addEventListener("click", function(e) {
       e.preventDefault();
       console.log(resultInDisplay);
-      if (resultInDisplay == 1) {
-        document.getElementById("digitField").value = "";
-        calculation = [];
-        resultInDisplay = 2;
+      // if (resultInDisplay == 1) {
+      //   document.getElementById("digitField").value = "";
+      //   calculation = [];
+      //   resultInDisplay = 0;
         
-      }
+      // }
       const number = e.target.childNodes[0].nodeValue;
       document.getElementById("digitField").value =
         document.getElementById("digitField").value + number;
@@ -60,25 +60,25 @@ function showResult(e) {
     useGrouping: false
   });
   document.getElementById("resetButton").innerText = "CE";
-  resultInDisplay = 1;
+  //resultInDisplay = 1;
 }
 
 // function to delete display and array
 document.getElementById("resetButton").addEventListener("click", deleteDisplay);
 function deleteDisplay(e) {
-  console.log(e);
+  console.log(resultInDisplay);
   if (e.target.childNodes["0"].data === "CE") {
     calculation = [];
     document.getElementById("digitField").value = "";
   } else {
-    if (resultInDisplay === 2) {
-      calculation = [];
-      document.getElementById("digitField").value = "";
-      resultInDisplay = 0;
-    }else{
+    // if (resultInDisplay == 2) {
+    //   calculation = [];
+    //   document.getElementById("digitField").value = "";
+    //   resultInDisplay = 0;
+    // }else{
     calculation.splice(calculation.length - 2, 2);
     document.getElementById("digitField").value = calculation.join("");
     document.getElementById("resetButton").innerText = "CE";
-    }
+    //}
   }
 }
